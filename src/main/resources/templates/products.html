@@ -91,6 +91,7 @@ body {
 					<th>Details</th>
 					<th>Availability</th>
 					<th>Contact</th>
+					<th>View</th>
 				</tr>
 				<tr th:each="product : ${products}">
 					<td th:text="${product.id}"></td>
@@ -100,6 +101,18 @@ body {
 					<td th:text="${product.details}"></td>
 					<td th:text="${product.availability}"></td>
 					<td th:text="${product.contact}"></td>
+					<td>
+                		<form action="#" th:action="@{/products/showOne/}" th:object="${product}" method="get"> 
+                    		<input name="id" type="hidden" th:value="${product.id}"> 
+                    		<input name="vacationName" type="hidden" th:value="${product.vacationName}"> 
+                    		<input name="price" type="hidden" th:value="${product.price}">
+                    		<input name="location" type="hidden" th:value="${product.location}">
+                    		<input name="details" type="hidden"  th:value="${product.details}">
+                    		<input name="availability" type="hidden"  th:value="${product.availability}">
+                    		<input name="contact" type="hidden"  th:value="${product.contact}">
+                    		<button class="btn btn-secondary" type="submit" name="viewItem">View</button>
+                		</form>
+            		</td>
 				</tr>
 			</table>
 		</div>

@@ -98,6 +98,7 @@ body {
 	.form-control {
 		margin-bottom: 10px !important;
 		margin-top: 0px !important;
+		background: #fff !important;
 	}
 </style>
 </head>
@@ -105,16 +106,16 @@ body {
 	<div layout:fragment="content">
 	<div class="heroImg">
 	<div class="container">
-		<h2 class="heroText">Update Vacation Package</h2>
+		<h2 class="heroText">Vacation Package</h2>
 	</div>
 	</div>
-	<form action="#" th:action="@{/products/doUpdate}" th:object="${productModel}" method="post">   
+	<form action="#" th:action="@{/products/all}" th:object="${productModel}" method="get">   
         <div class="container"> 
             <input type="hidden" th:field="${productModel.id}" name="id"> 
             
             <div class="input-group input-group-lg">  
                 <span class="input-group-text" id="inputGroup-sizing-lg">Vacation Name</span>  
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:field="*{vacationName}" placeholder = "Vacation Name" name="vacationName" required>  
+                <input readonly type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:field="*{vacationName}" placeholder = "Vacation Name" name="vacationName" required>  
                 <div class="fieldError">
                     <p th:if="${#fields.hasErrors('vacationName')}" th:errors="*{vacationName}">Vacation Name Error</p>
                 </div>
@@ -122,7 +123,7 @@ body {
             
             <div class="input-group input-group-lg">  
                 <span class="input-group-text" id="inputGroup-sizing-lg">Price</span>  
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:field="*{price}" placeholder = "Price" name="price" required>  
+                <input readonly type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:field="*{price}" placeholder = "Price" name="price" required>  
                 <div class="fieldError">
                     <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price Error</p>
                 </div>
@@ -130,7 +131,7 @@ body {
             
             <div class="input-group input-group-lg">  
                 <span class="input-group-text" id="inputGroup-sizing-lg">Details</span>  
-                <textarea type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:field="*{details}" placeholder = "Details" name="details" required></textarea> 
+                <textarea readonly type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:field="*{details}" placeholder = "Details" name="details" required></textarea>
                 <div class="fieldError">
                     <p th:if="${#fields.hasErrors('details')}" th:errors="*{price}">Details Error</p>
                 </div>
@@ -138,7 +139,7 @@ body {
             
             <div class="input-group input-group-lg">  
                 <span class="input-group-text" id="inputGroup-sizing-lg">Location</span>  
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:field="*{location}" placeholder = "Location" name="location" required>  
+                <input readonly type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:field="*{location}" placeholder = "Location" name="location" required>  
                 <div class="fieldError">
                     <p th:if="${#fields.hasErrors('location')}" th:errors="*{location}">Location Error</p>
                 </div>
@@ -146,7 +147,7 @@ body {
             
             <div class="input-group input-group-lg">  
                 <span class="input-group-text" id="inputGroup-sizing-lg">Availability</span>  
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:field="*{availability}" placeholder = "Availability" name="availability" required>  
+                <input readonly type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:field="*{availability}" placeholder = "Availability" name="availability" required>  
                 <div class="fieldError">
                     <p th:if="${#fields.hasErrors('availability')}" th:errors="*{availability}">Availability Error</p>
                 </div>
@@ -154,15 +155,11 @@ body {
             
             <div class="input-group input-group-lg">  
                 <span class="input-group-text" id="inputGroup-sizing-lg">Contact</span>  
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:field="*{contact}" placeholder = "Contact" name="contact" required>  
+                <input readonly type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:field="*{contact}" placeholder = "Contact" name="contact" required>  
                 <div class="fieldError">
                     <p th:if="${#fields.hasErrors('contact')}" th:errors="*{contact}">Contact Error</p>
                 </div>
-            </div>
-            
-            <div>
-                <button type="submit">Update</button>    
-            </div>   
+            </div>  
         
             <div th:if="${#fields.hasErrors('*')}">
                 List of Errors

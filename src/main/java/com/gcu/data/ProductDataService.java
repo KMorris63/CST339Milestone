@@ -35,7 +35,7 @@ public class ProductDataService implements ProductDataAccessInterface {
 	@Override
 	public ProductModel getById(int id) {
 		// query but easier with jdbc
-		ProductModel result = jdbcTemplate.queryForObject("SELECT * FROM products where id = ?", 
+		ProductModel result = jdbcTemplate.queryForObject("SELECT * FROM products WHERE id = ?", 
 				new ProductMapper(),
 				new Object[] {id});
 		// return the product

@@ -93,7 +93,7 @@ public class ProductsController {
 		return "products";
 	}
 	
-	// controller mapping for admin, not used yet
+	// controller mapping for admin
 	@GetMapping("/admin") 
 	public String showProductsForAdmin(Model model) {  
 		// display all products with delete and edit buttons
@@ -106,12 +106,12 @@ public class ProductsController {
 		return "productsAdmin";
 	}
 	
-	// to delete with controller from admin, not used yet
+	// to delete with controller from admin
 	@PostMapping("/delete") 
 	public String deleteOrder(@Valid ProductModel product, BindingResult bindingResult, Model model) {
 		// delete the product
-		productService.deleteOne(product.getID());
-		System.out.println("In Controller: product id is " + product.getID() + " product name " + product.getVacationName());
+		productService.deleteOne(product.getId());
+		System.out.println("In Controller: product id is " + product.getId() + " product name " + product.getVacationName());
 		// get updated list of all the products
 		List<ProductModel> products = productService.getProducts(); 
 		// display all products
@@ -120,13 +120,13 @@ public class ProductsController {
 		return "productsAdmin";
 	}
 	
-	// edit form for admin, not used yet
+	// edit form for admin
 	@PostMapping("/editForm") 
-	public String displayEditForm(ProductModel product, Model model){
+	public String displayEditForm(ProductModel productModel, Model model){
 		// Display edit form
 		model.addAttribute("title", "Edit Product");
-		model.addAttribute("product", product);
-		System.out.println("In Controller edit id is " + product.getID());
+		model.addAttribute("productModel", productModel);
+		System.out.println("In Controller edit id is " + productModel.getId());
 		return "productsEditForm";
 	}
 	
@@ -134,12 +134,22 @@ public class ProductsController {
 	@PostMapping("/doUpdate") 
 	public String updateOrder(@Valid ProductModel product, BindingResult bindingResult, Model model) {
 		// update the existing product
-		productService.updateOne(product.getID(), product);
+		// business service
+		productService.updateOne(product.getId(), product);
 		// get updated list of all the products
 		List<ProductModel> products = productService.getProducts(); 
 		// display all products
 		model.addAttribute("products", products); 
 		model.addAttribute("searchModel", new SearchProductsModel()); 
 		return "productsAdmin";
+	}
+	
+	// showing one product
+	@GetMapping("/showOne") 
+	public String displaySingleProduct(ProductModel productModel, Model model){
+		// Display edit form
+		model.addAttribute("title", "One Product");
+		model.addAttribute("productModel", productModel);
+		return "singleProductForm";
 	}
 }

@@ -119,8 +119,8 @@ orders is an arraylist of type ProductModel-->
             <td>
                 <form action="#" th:action="@{/products/editForm/}" th:object="${product}" method="post"> 
                     <input name="id" type="hidden" th:value="${product.id}"> 
-                    <input name="vacationName"type="hidden" th:value="${product.vacationName}"> 
-                    <input name="price"type="hidden" th:value="${product.price}">
+                    <input name="vacationName" type="hidden" th:value="${product.vacationName}"> 
+                    <input name="price" type="hidden" th:value="${product.price}">
                     <input name="location" type="hidden" th:value="${product.location}">
                     <input name="details" type="hidden"  th:value="${product.details}">
                     <input name="availability" type="hidden"  th:value="${product.availability}">

@@ -34,11 +34,21 @@ public class ProductModel {
 	public String contact;
 	
 	public ProductModel()
-	{}
+	{
+		/*
+		id = 1;
+		vacationName = "Default Name";
+		price = 10;
+		location = "Default Location";
+		details = "Default Details";
+		availability = 1;
+		contact = "Default Contact";
+		*/
+	}
 	
 	// data constructor
-	public ProductModel(int ID, String vacationName2, int price2, String location2, String details2, int availability2, String contact2) {
-		this.id = ID;
+	public ProductModel(int id2, String vacationName2, int price2, String location2, String details2, int availability2, String contact2) {
+		id = id2;
 		vacationName = vacationName2;
 		price = price2;
 		location = location2;
@@ -102,11 +112,11 @@ public class ProductModel {
 		this.contact = contact;
 	}
 	
-	public int getID() {
+	public int getId() {
 		return id;
 	}
 	
-	public void setID(int newID) {
+	public void setId(int newID) {
 		this.id = newID;
 	}
 }
