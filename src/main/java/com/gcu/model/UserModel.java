@@ -1,14 +1,18 @@
 package com.gcu.model;
 
+import java.util.ArrayList;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /*
- * Kacey morris and Alex vergara
+ * Kacey Morris and Alex Vergara
  * Milestone
- * 10/3/2021
+ * 11/29/2021
  */
 public class UserModel {
+	private Long id;
+	
 	@NotNull(message="Username is a required field")
 	@Size(min=3, max=32, message="Username must be between 3 and 32 characters")
 	private String username;
@@ -29,12 +33,21 @@ public class UserModel {
 	@Size(min=12, max=12, message="Phone number must be 12 characters (000-000-0000)")
 	private String phone;
 	
+	// NOTE ADDED ROLES
+	private ArrayList<String> roles;
+	
 	public UserModel()
 	{}
 	
 	public UserModel(String username2, String password2) {
 		username = username2;
 		password = password2;
+	}
+	public UserModel(Long id2, String username2, String password2, ArrayList<String> role2) {
+		id = id2;
+		username = username2;
+		password = password2;
+		roles = role2;
 	}
 	public String getUsername() {
 		return username;
@@ -72,7 +85,20 @@ public class UserModel {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	public ArrayList<String> getRoles() {
+		return roles;
+	}
+	public void setRoles(ArrayList<String> role) {
+		this.roles = role;
+	}
 	public String toString() {
 		return "UserModel [username = " + this.username + " password = " + this.password + "]";
+	}
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

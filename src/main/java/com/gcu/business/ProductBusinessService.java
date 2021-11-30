@@ -9,7 +9,7 @@ import com.gcu.data.ProductDataService;
 import com.gcu.model.ProductModel;
 
 /*
- * Kacey morris and Alex vergara
+ * Kacey Morris and Alex Vergara
  * Milestone
  * 11/7/2021
  */

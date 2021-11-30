@@ -11,22 +11,23 @@
         <li class="nav-item">
           <a class="nav-link" href="#"th:href="@{/main/home}">Home</a>
         </li>
-        <li class="nav-item">
+        <li sec:authorize="!isAuthenticated()" class="nav-item">
           <a class="nav-link" href="#" th:href="@{/main/register}">Register</a>
         </li>
-        <li class="nav-item">
+        <li sec:authorize="!isAuthenticated()" class="nav-item">
           <a class="nav-link" href="#" th:href="@{/main/login}">Login</a>
         </li>
-        <li class="nav-item">
+        <li sec:authorize="hasAnyAuthority('ADMIN','USER')" class="nav-item">
           <a class="nav-link" href="#" th:href="@{/products/all}">View All</a>
+          <!-- <a class="nav-link" href="/products/all">View All</a> -->
         </li>
-        <li class="nav-item">
+        <li sec:authorize="hasAnyAuthority('ADMIN','USER')" class="nav-item">
           <a class="nav-link" href="#" th:href="@{/products/searchForm}">Search</a>
         </li>
-        <li class="nav-item">
+        <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
           <a class="nav-link" href="#" th:href="@{/products/createProduct}">New</a>
         </li>
-        <li class="nav-item">
+        <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
           <a class="nav-link" href="#" th:href="@{/products/admin}">Admin</a>
         </li>
       </ul>

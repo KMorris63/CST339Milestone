@@ -1,54 +1,40 @@
 package com.gcu.data;
 
-import java.sql.Statement;
-import java.util.List;
-
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
-import com.gcu.model.UserModel;
-import com.gcu.model.UsersMapper;
+import com.gcu.model.UserEntity;
 
-@Repository
-public class UsersDataService {
-	
+/*
+ * Kacey Morris and Alex Vergara
+ * Milestone
+ * 11/29/2021
+ */
+
+/*
+ * Three stereotypes are typical for Spring beans
+ * @Component is a generic stereotype for any Spring-managed component.
+ * @Service annotates classes at the Service layer
+ * @Repository annotates classes at the persistence layer, which will act as a database repository
+ * @Service and @Repository are special cases of @Component
+ * They are technically the same, but we use them for different purposes
+ * */
+
+@Service
+public class UsersDataService implements UsersDataAccessInterface<UserEntity> {
+	// repository uses the crud repository for data manipulation
 	@Autowired
-	DataSource datasource;
-	JdbcTemplate jdbcTemplate;
+	private UsersRepository usersRepository; 
 	
-	public UsersDataService(DataSource datasource)
-	{
-		this.datasource = datasource;
-		this.jdbcTemplate = new JdbcTemplate(datasource);
-	}
-	
-	
-	
-	//@SuppressWarnings("deprecation")
-	@SuppressWarnings("deprecation")
-	public int getUsersByUsername(String username, String password)
-	{
-
-		String sql = "SELECT COUNT(*) FROM users where username = ?";
-		return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM users where username = ? and password = ?", new Object[]{username, password}, Integer.class);
-
+	// non default constructor
+	public UsersDataService(UsersRepository usersRepository) {
+		this.usersRepository = usersRepository;
 	}
 
-	public int addUser(UserModel user)
-	{
-		return jdbcTemplate.update("insert into users (ID, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME, EMAIL, PHONE) VALUES(?,?,?,?,?,?,?)",
-				0,
-				user.getUsername(),
-				user.getPassword(),
-				user.getFirstname(),
-				user.getLastname(),
-				user.getEmail(),
-				user.getPhone()
-				);
+	// find by username defined in interface
+	@Override
+	public UserEntity findByUsername(String username) {
+		return usersRepository.findByUsername(username);
 	}
 
-	
 }

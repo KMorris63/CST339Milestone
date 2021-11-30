@@ -35,15 +35,7 @@ public class ProductModel {
 	
 	public ProductModel()
 	{
-		/*
-		id = 1;
-		vacationName = "Default Name";
-		price = 10;
-		location = "Default Location";
-		details = "Default Details";
-		availability = 1;
-		contact = "Default Contact";
-		*/
+		
 	}
 	
 	// data constructor

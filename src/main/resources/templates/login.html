@@ -87,16 +87,16 @@
 		<h2 class="heroText">Login</h2>
 	</div>
 	</div>
-		<form action="#" th:action="@{doLogin}" th:object="${userModel}" method="post">			
+		<form action="#" th:action="@{/main/login}" th:object="${userModel}" method="post">			
 			<div class="container">
 				<label for="uname"><b>Username</b></label>
-				<input type="text" th:field="*{username}" placeholder="Enter username" name="uname" required>
+				<input type="text" th:field="*{username}" placeholder="Enter username" name="username" required>
 				<div class="fieldError">
 					<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">User Name Error</p>
 				</div>
 				
 				<label for="psw"><b>Password</b></label>
-				<input type="password" th:field="*{password}" placeholder="Enter password" name="psw" required>
+				<input type="password" th:field="*{password}" placeholder="Enter password" name="password" required>
 				<div class="fieldError">
 					<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>
 				</div>
