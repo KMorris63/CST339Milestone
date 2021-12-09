@@ -64,13 +64,14 @@ public class ProductDataService implements ProductDataAccessInterface {
 	@Override
 	public int addOne(ProductModel newProduct) {
 		// insert statement with protection against SQL injections
-		return jdbcTemplate.update("INSERT INTO products (NAME, PRICE, LOCATION, DETAILS, AVAILABILITY, CONTACT) VALUES (?,?,?,?,?,?)",
+		return jdbcTemplate.update("INSERT INTO products (NAME, PRICE, LOCATION, DETAILS, AVAILABILITY, CONTACT, IMAGE) VALUES (?,?,?,?,?,?,?)",
 				newProduct.getVacationName(),
 				newProduct.getPrice(),
 				newProduct.getLocation(),
 				newProduct.getDetails(),
 				newProduct.getAvailability(),
-				newProduct.getContact());
+				newProduct.getContact(),
+				newProduct.getImage());
 	}
 
 	// delete a product from database by id
@@ -89,13 +90,14 @@ public class ProductDataService implements ProductDataAccessInterface {
 	public ProductModel updateOne(int idToUpdate, ProductModel updateProduct) {
 		// sql query with injection protection
 		int result = jdbcTemplate.update(
-				"UPDATE products SET NAME = ?, PRICE = ?, LOCATION = ?, DETAILS = ?, AVAILABILITY = ?, CONTACT = ? WHERE id = ?",
+				"UPDATE products SET NAME = ?, PRICE = ?, LOCATION = ?, DETAILS = ?, AVAILABILITY = ?, CONTACT = ?, IMAGE = ? WHERE id = ?",
 				updateProduct.getVacationName(),
 				updateProduct.getPrice(),
 				updateProduct.getLocation(),
 				updateProduct.getDetails(),
 				updateProduct.getAvailability(),
 				updateProduct.getContact(),
+				updateProduct.getImage(),
 				idToUpdate);
 		if (result > 0) {
 			return updateProduct;
@@ -104,5 +106,4 @@ public class ProductDataService implements ProductDataAccessInterface {
 			return null;
 		}
 	}
-
 }

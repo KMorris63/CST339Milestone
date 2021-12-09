@@ -1,9 +1,12 @@
 package com.gcu.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,7 +15,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.gcu.business.ProductBusinessServiceInterface;
 import com.gcu.business.SecurityServiceInterface;
+import com.gcu.model.ProductModel;
+import com.gcu.model.SearchProductsModel;
 import com.gcu.model.UserEntity;
 import com.gcu.model.UserModel;
 
@@ -30,6 +36,9 @@ public class UserController {
 	@Autowired
 	SecurityServiceInterface securityService;
 	
+	@Autowired
+	ProductBusinessServiceInterface productService;
+	
 	// home route
 	@GetMapping("/home")
 	public String homePage(Model model) {
@@ -37,6 +46,7 @@ public class UserController {
 		model.addAttribute("title", "Vacation Site");
 		model.addAttribute("userModel", new UserEntity());
 		// model.addAttribute("userModel", new UserModel());
+		
 		int users=1;
 		model.addAttribute("users", users);
 		return "homePage";
@@ -94,9 +104,10 @@ public class UserController {
 			return "register";
 		}
 		
-//		// add user model
-//		UserModel user = securityService.getByUsername(userModel);
-//		model.addAttribute("userModel", user);
+		// encode password before registering user
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String ecodedPsw = passwordEncoder.encode(userModel.getPassword());
+		userModel.setPassword(ecodedPsw);
 		
 		// NOTE CHANGED USERMODEL TO USERENTITY
 		// register user and track them with cookies
@@ -108,6 +119,47 @@ public class UserController {
 		model.addAttribute("userModel", user);
 		
 		return "RegisterSuccess";
-		
+	}
+	
+	// controller mapping for users admin
+	@GetMapping("/admin") 
+	public String showUsersForAdmin(Model model) {
+		// display all products with delete and edit buttons
+		List<UserModel> users = securityService.getAllUsers();   
+		model.addAttribute("title", "Users Admin");
+		model.addAttribute("searchModel", new SearchProductsModel());
+		model.addAttribute("users", users);
+		System.out.println(users);
+		// usersAdmin page shows a table of users including buttons for del and edit.
+		return "usersAdmin";
+	}
+	
+	// to delete with controller from admin
+	@PostMapping("/delete") 
+	public String deleteOrder(@Valid UserModel user, BindingResult bindingResult, Model model) {
+		// delete the user
+		securityService.deleteOne(user.getId());
+		System.out.println("In Controller: user id is " + user.getId() + " username " + user.getUsername());
+		// get updated list of all the users
+		List<UserModel> users = securityService.getAllUsers();
+		// display all users
+		model.addAttribute("users", users); 
+		model.addAttribute("searchModel", new SearchProductsModel()); 
+		return "usersAdmin";
+	}
+	
+	// used in the admin form for each user
+	@PostMapping("/update") 
+	public String updateUser(@Valid UserModel user, BindingResult bindingResult, Model model) {
+		// update the existing user
+		// business service
+		securityService.updateOne(user.getId(), user);
+		System.out.println("Just updated user with ID" + user.getId());
+		// get updated list of all the users
+		List<UserModel> users = securityService.getAllUsers();
+		// display all users
+		model.addAttribute("users", users); 
+		model.addAttribute("searchModel", new SearchProductsModel()); 
+		return "usersAdmin";
 	}
 }

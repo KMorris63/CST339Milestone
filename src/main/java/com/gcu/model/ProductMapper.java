@@ -23,9 +23,10 @@ public class ProductMapper implements RowMapper<ProductModel> {
 				resultSet.getString("LOCATION"),
 				resultSet.getString("DETAILS"),
 				resultSet.getInt("AVAILABILITY"),
-				resultSet.getString("CONTACT")
+				resultSet.getString("CONTACT"),
+				resultSet.getString("IMAGE")
 				);
-		// System.out.println("in product mapper id = " + product.getID());
+		// System.out.println("in product mapper id = " + product.getId() + " image = " + product.getImage());
 		
 		return product;
 	}

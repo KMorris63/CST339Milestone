@@ -33,13 +33,15 @@ public class ProductModel {
 	@Size(min=2, max=50, message="Description must be between 2 and 50 characters")
 	public String contact;
 	
+	public String image;
+	
 	public ProductModel()
 	{
 		
 	}
 	
 	// data constructor
-	public ProductModel(int id2, String vacationName2, int price2, String location2, String details2, int availability2, String contact2) {
+	public ProductModel(int id2, String vacationName2, int price2, String location2, String details2, int availability2, String contact2, String image) {
 		id = id2;
 		vacationName = vacationName2;
 		price = price2;
@@ -47,6 +49,7 @@ public class ProductModel {
 		details = details2;
 		availability = availability2;
 		contact = contact2;
+		this.image = image;
 		// System.out.println("In model constructor id is " + this.id + " " + this.getID());
 	}
 	
@@ -110,5 +113,13 @@ public class ProductModel {
 	
 	public void setId(int newID) {
 		this.id = newID;
+	}
+	
+	public String getImage() {
+		return this.image;
+	}
+	
+	public void setImage(String image) {
+		this.image = image;
 	}
 }

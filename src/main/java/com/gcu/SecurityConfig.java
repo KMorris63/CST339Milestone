@@ -3,6 +3,7 @@ package com.gcu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -50,8 +51,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			// WORKING ALTERNATIVE
 			// https://stackoverflow.com/questions/30788105/spring-security-hasrole-not-working
 			.antMatchers("/products/admin").hasAuthority("ADMIN")
+			.antMatchers("/main/admin").hasAuthority("ADMIN")
 			.antMatchers("/products/createProduct").hasAuthority("ADMIN")
-				
+			
+			// settings for the API, only admin can add a new role, update, and delete
+			.antMatchers(HttpMethod.POST, "/api/**").hasAuthority("ADMIN")
+			.antMatchers(HttpMethod.PUT, "/api/**").hasAuthority("ADMIN")
+			.antMatchers(HttpMethod.DELETE, "/api/**").hasAuthority("ADMIN")
+			
+			// only authenticated users can access the api
+			.antMatchers("/api/**").authenticated()
 			// only authenticated users can access the products
 			.antMatchers("/products/**").authenticated()
 			
@@ -71,7 +80,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.permitAll()
 			
 			// display all orders after login
-			.defaultSuccessUrl("/products/all");
+			.defaultSuccessUrl("/products/all")
+			
+			// dont use csrf in an API since csrf is used to secure <form> items not JSON data
+			.and()
+			.csrf().ignoringAntMatchers("/api/**");
 	}
 	
 	// @SuppressWarnings("deprecation")

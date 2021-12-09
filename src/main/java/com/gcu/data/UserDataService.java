@@ -13,6 +13,7 @@ import com.gcu.model.ProductMapper;
 import com.gcu.model.ProductModel;
 import com.gcu.model.UserEntity;
 import com.gcu.model.UserModel;
+import com.gcu.model.UserModelMapper;
 import com.gcu.model.UsersMapper;
 
 @Repository
@@ -62,6 +63,41 @@ public class UserDataService {
 				user.getPhone()
 				);
 	}
-
 	
+	// NOTE CHANGED FROM USERMODEL TO USERENTITY
+	public List<UserModel> getAllUsers() {
+		System.out.println("OLD user data service get all users");
+		// query but easier with jdbc
+		List<UserModel> result = jdbcTemplate.query("SELECT * FROM users", new UserModelMapper());
+		// return the user
+		return result;
+	}
+	
+	public boolean deleteOne(Long id) {
+		int updateResult = jdbcTemplate.update(
+				"DELETE FROM users WHERE ID = ?",
+				new Object[] {id});
+		System.out.println("user data service: Trying to delete" + id);
+		System.out.println("user data service: result: " + updateResult);
+		return (updateResult > 0);
+	}
+
+	// update a user by id with new user details
+	public UserModel updateOne(Long idToUpdate, UserModel updateUser) {
+		// sql query with injection protection
+		int result = jdbcTemplate.update(
+				"UPDATE users SET FIRST_NAME = ?, LAST_NAME = ?, EMAIL = ?, PHONE = ?, ROLE = ? WHERE ID = ?",
+				updateUser.getFirstname(),
+				updateUser.getLastname(),
+				updateUser.getEmail(),
+				updateUser.getPhone(),
+				updateUser.getRoles(),
+				idToUpdate);
+		if (result > 0) {
+			return updateUser;
+		}
+		else {
+			return null;
+		}
+	}
 }

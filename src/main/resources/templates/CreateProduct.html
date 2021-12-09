@@ -136,7 +136,10 @@ body {
 				<input type="text" th:field="*{contact}" name="contact" required>
 				<div class="fieldError">
 					<p th:if="${#fields.hasErrors('contact')}" th:errors="*{contact}">Contact Error</p>
-				</div>	
+				</div>
+				
+				<label for="contact"><b>Image</b></label>
+				<input type="text" th:field="*{image}" name="image">
 				
 				<button type="submit">Create Package</button>
 				<div class="errors">

@@ -34,7 +34,7 @@ public class UserModel {
 	private String phone;
 	
 	// NOTE ADDED ROLES
-	private ArrayList<String> roles;
+	private String roles;
 	
 	public UserModel()
 	{}
@@ -43,11 +43,21 @@ public class UserModel {
 		username = username2;
 		password = password2;
 	}
-	public UserModel(Long id2, String username2, String password2, ArrayList<String> role2) {
+	public UserModel(Long id2, String username2, String password2, String role2) {
 		id = id2;
 		username = username2;
 		password = password2;
 		roles = role2;
+	}
+	public UserModel(Long id, String username, String password, String firstName, String lastName, String email, String phone, String role) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.firstname = firstName;
+		this.lastname = lastName;
+		this.email = email;
+		this.phone = phone;
+		this.roles = role;
 	}
 	public String getUsername() {
 		return username;
@@ -85,10 +95,10 @@ public class UserModel {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public ArrayList<String> getRoles() {
+	public String getRoles() {
 		return roles;
 	}
-	public void setRoles(ArrayList<String> role) {
+	public void setRoles(String role) {
 		this.roles = role;
 	}
 	public String toString() {

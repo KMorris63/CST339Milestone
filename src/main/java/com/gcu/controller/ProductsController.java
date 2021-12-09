@@ -51,7 +51,8 @@ public class ProductsController {
 		// display all product
 		model.addAttribute("products", products); 
 		model.addAttribute("searchModel", new SearchProductsModel()); 
-		return "products";
+		// return "products";
+		return "productsAdmin";
 	} 
 	
 	// controller for search form
@@ -78,7 +79,8 @@ public class ProductsController {
 		model.addAttribute("searchModel", searchModel);
 		model.addAttribute("products", products);
 		// display products that were found
-		return "products";
+		return "productsImages";
+		// return "products";
 	}
 	
 	// controller mapping for all products
@@ -90,7 +92,8 @@ public class ProductsController {
 		model.addAttribute("searchModel", new SearchProductsModel());
 		model.addAttribute("products", products);
 		// show all products
-		return "products";
+		// return "products";
+		return "productsImages";
 	}
 	
 	// controller mapping for admin
@@ -150,6 +153,7 @@ public class ProductsController {
 		// Display edit form
 		model.addAttribute("title", "One Product");
 		model.addAttribute("productModel", productModel);
+		System.out.println("Show One Product image = " + productModel.getImage());
 		return "singleProductForm";
 	}
 }

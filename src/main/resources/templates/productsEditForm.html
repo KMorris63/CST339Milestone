@@ -73,7 +73,6 @@ body {
 	.heroImg {
 		width: 100%;
 		height: 300px;
-		background: url("/img/vacationBgrnd.jpg");
 		background-repeat: no-repeat;
 		background-attachment: fixed;
 		background-position: center;
@@ -103,7 +102,7 @@ body {
 </head>
 	<body>
 	<div layout:fragment="content">
-	<div class="heroImg">
+	<div class="heroImg" th:style="'background-image:url(/img/' + ${productModel.image} + ');'">
 	<div class="container">
 		<h2 class="heroText">Update Vacation Package</h2>
 	</div>
@@ -157,6 +156,14 @@ body {
                 <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:field="*{contact}" placeholder = "Contact" name="contact" required>  
                 <div class="fieldError">
                     <p th:if="${#fields.hasErrors('contact')}" th:errors="*{contact}">Contact Error</p>
+                </div>
+            </div>
+            
+            <div class="input-group input-group-lg">  
+                <span class="input-group-text" id="inputGroup-sizing-lg">Image File</span>  
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:field="*{image}" placeholder = "Image" name="image">  
+                <div class="fieldError">
+                    <p th:if="${#fields.hasErrors('image')}" th:errors="*{image}">Image Error</p>
                 </div>
             </div>
             

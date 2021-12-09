@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CookieValue;
 
 import com.gcu.data.UserDataService;
+import com.gcu.model.ProductModel;
 import com.gcu.model.UserEntity;
 import com.gcu.model.UserModel;
 
@@ -79,46 +80,22 @@ public class SecurityService implements SecurityServiceInterface{
 		return usersDAO.findByUsername(userModel.getUsername());
 	}
 
-
+	// get all users from database 
+	@Override
+	public List<UserModel> getAllUsers() {
+		List<UserModel> users = usersDAO.getAllUsers();
+		return users;
+	}
 	
-	// Valid Logins
-//		String[][] validLogins = new String[][] {
-//			{"kacey", "12345"},
-//			{"dayglow","fuzzy"},
-//			{"j^p^n","lofi"},
-//			{"cloud","password"},
-//			{"tifa","12345"},
-//			{"summer","ville"},
-//			{"aldn","glaivy"},
-//			{"alexvii", "12345"}
-//			
-//		};
-		
-		// check if user exits
-//		@Override
-//		public boolean isAuthenticated(UserModel loginModel, String username, String password) {
-	//	
-//			// Check to see if the login matches any of the valid logins
-//			boolean success = false;
-//			// loop through 2d array
-//			for (int i = 0; i < validLogins.length; i++) {
-//				if(loginModel.getUsername().equals(validLogins[i][0]) && loginModel.getPassword().equals(validLogins[i][1])){
-//					// if the user exists return true
-//					success = true;
-//				}
-//			}
-//			// successful login ; ie returns true
-//			if(success) {
-//				return true;
-//			}
-//			// checks for registered user using cookies
-//			else if(loginModel.getUsername().equals(username) && loginModel.getPassword().equals(password)) {
-//				return true;
-//			}
-//			// user not found
-//			else {
-//				return false;
-//			}
-//		}
+	// delete a user
+	@Override
+	public boolean deleteOne(Long id) {
+		return usersDAO.deleteOne(id);
+	}
 
+	// update a user
+	@Override
+	public UserModel updateOne(Long idToUpdate, UserModel updateUser) {
+		return usersDAO.updateOne(idToUpdate, updateUser);
+	}
 }
