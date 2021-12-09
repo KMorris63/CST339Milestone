@@ -27,8 +27,14 @@
         <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
           <a class="nav-link" href="#" th:href="@{/products/createProduct}">New</a>
         </li>
-        <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
-          <a class="nav-link" href="#" th:href="@{/products/admin}">Admin</a>
+        <li sec:authorize="hasAuthority('ADMIN')" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" href="#" th:href="@{/products/admin}">Vacations</a></li>
+            <li><a class="dropdown-item" href="#" th:href="@{/main/admin}">Users</a></li>
+          </ul>
         </li>
       </ul>
     </div>

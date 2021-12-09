@@ -82,6 +82,7 @@ body {
 		justify-content: flex-start;
 		align-items: center;
 		padding: 20px;
+		object-position: 50% 50%;
 	}
 	.heroText {
 		padding: 30px 50px;
@@ -104,23 +105,14 @@ body {
 </head>
 	<body>
 	<div layout:fragment="content">
-	<div class="heroImg">
+	<div class="heroImg" th:style="'background-image:url(/img/' + ${productModel.image} + ');'">
 	<div class="container">
-		<h2 class="heroText">Vacation Package</h2>
+		<h2 class="heroText" th:text="${productModel.vacationName}">Vacation Package</h2>
 	</div>
 	</div>
 	<form action="#" th:action="@{/products/all}" th:object="${productModel}" method="get">   
         <div class="container"> 
-            <input type="hidden" th:field="${productModel.id}" name="id"> 
-            
-            <div class="input-group input-group-lg">  
-                <span class="input-group-text" id="inputGroup-sizing-lg">Vacation Name</span>  
-                <input readonly type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:field="*{vacationName}" placeholder = "Vacation Name" name="vacationName" required>  
-                <div class="fieldError">
-                    <p th:if="${#fields.hasErrors('vacationName')}" th:errors="*{vacationName}">Vacation Name Error</p>
-                </div>
-            </div>
-            
+            <input type="hidden" th:field="${productModel.id}" name="id">             
             <div class="input-group input-group-lg">  
                 <span class="input-group-text" id="inputGroup-sizing-lg">Price</span>  
                 <input readonly type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:field="*{price}" placeholder = "Price" name="price" required>  
